@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
+import { IndustryChangeApplicationModule } from './industryChangeApplication/industryChangeApplication.module';
 
 @Module({
-	imports: [],
+	imports: [IndustryChangeApplicationModule],
 })
 
 export class AppModule { }
-
