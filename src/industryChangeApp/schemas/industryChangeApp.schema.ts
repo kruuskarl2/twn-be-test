@@ -6,12 +6,12 @@ import { DecisionSchema } from './decision.schema';
 import { Current } from '../interfaces/current.interface';
 import { Required } from '../interfaces/required.interface';
 import { Decision } from '../interfaces/decision.interface';
-import { Status, ObjectStatus } from '../interfaces/industryChangeApplication.interface';
+import { Status, ObjectStatus } from '../interfaces/industryChangeApp.interface';
 
-export type industryChangeApplicationDocument = HydratedDocument<IndustryChangeApplication>;
+export type industryChangeAppDocument = HydratedDocument<IndustryChangeApp>;
 
 @Schema({ timestamps: true, collection: 'industryChangeApplications' })
-export class IndustryChangeApplication {
+export class IndustryChangeApp {
     @Prop({ required: true })
     residentSub: string;
 
@@ -40,4 +40,4 @@ export class IndustryChangeApplication {
     objectStatus: ObjectStatus;
 }
 
-export const IndustryChangeApplicationSchema = SchemaFactory.createForClass(IndustryChangeApplication);
+export const IndustryChangeAppSchema = SchemaFactory.createForClass(IndustryChangeApp);

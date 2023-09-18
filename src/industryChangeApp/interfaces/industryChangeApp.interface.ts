@@ -13,7 +13,7 @@ export enum ObjectStatus {
     deleted = 'DELETED',
 }
 
-export interface IndustryChangeApplication {
+export interface IndustryChangeApp {
     residentSub: string;
     current: Current;
     required: Required;

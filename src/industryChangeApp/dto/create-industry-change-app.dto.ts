@@ -2,7 +2,7 @@ import { IsString, IsBoolean } from 'class-validator';
 import { ShouldBeNullIfFalse } from 'src/validation/shouldBeNullIfFalse';
 import { shouldBeDefinedIfTrue } from 'src/validation/shouldBeDefinedIfTrue';
 
-export class CreateIndustryChangeApplicationDto {
+export class CreateIndustryChangeAppDto {
     @IsString()
     residentSub: string;
 

@@ -1,23 +1,21 @@
 import { Model } from 'mongoose';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { IndustryChangeApplication } from './schemas/industryChangeApplication.schema';
-import { CreateIndustryChangeApplicationDto } from './dto/create-industry-change-application.dto';
+import { IndustryChangeApp } from './schemas/industryChangeApp.schema';
+import { CreateIndustryChangeAppDto } from './dto/create-industry-change-app.dto';
 import { ResidentService } from 'src/resident/resident.service';
 import { TypeOfRegistration, Status } from 'src/resident/interfaces/resident.interface';
 
 @Injectable()
-export class IndustryChangeApplicationService {
+export class IndustryChangeAppService {
     constructor(
         private residentService: ResidentService,
-        @InjectModel(IndustryChangeApplication.name)
-        private industryChangeApplicationModel: Model<IndustryChangeApplication>,
+        @InjectModel(IndustryChangeApp.name)
+        private industryChangeAppModel: Model<IndustryChangeApp>,
     ) {}
 
-    async create(
-        createIndustryChangeApplicationDto: CreateIndustryChangeApplicationDto,
-    ): Promise<IndustryChangeApplication> {
-        const { residentSub: sub } = createIndustryChangeApplicationDto;
+    async create(createIndustryChangeAppDto: CreateIndustryChangeAppDto): Promise<IndustryChangeApp> {
+        const { residentSub: sub } = createIndustryChangeAppDto;
 
         const resident = await this.residentService.findResidentBySub(sub);
 
@@ -31,9 +29,7 @@ export class IndustryChangeApplicationService {
             throw new HttpException(`Resident has limited e-residency or is inactive.`, HttpStatus.NOT_ACCEPTABLE);
         }
 
-        const createdIndustryChangeApplication = new this.industryChangeApplicationModel(
-            createIndustryChangeApplicationDto,
-        );
-        return createdIndustryChangeApplication.save();
+        const createdIndustryChangeApp = new this.industryChangeAppModel(createIndustryChangeAppDto);
+        return createdIndustryChangeApp.save();
     }
 }
