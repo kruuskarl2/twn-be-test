@@ -1,6 +1,7 @@
-import { IsString, IsBoolean } from 'class-validator';
+import { IsString, IsBoolean, IsEnum } from 'class-validator';
 import { ShouldBeNullIfFalse } from 'src/validation/shouldBeNullIfFalse';
 import { shouldBeDefinedIfTrue } from 'src/validation/shouldBeDefinedIfTrue';
+import { Industry, RegulatoryElection } from 'src/resident/interfaces/resident.interface';
 
 export class CreateIndustryChangeAppDto {
     @IsString()
@@ -9,13 +10,15 @@ export class CreateIndustryChangeAppDto {
     @IsBoolean()
     willWorkInPhysicalJurisdiction: Boolean;
 
+    @IsEnum(Industry)
     @ShouldBeNullIfFalse('willWorkInPhysicalJurisdiction')
     @shouldBeDefinedIfTrue('willWorkInPhysicalJurisdiction')
-    industry: string;
+    industry: Industry;
 
+    @IsEnum(RegulatoryElection)
     @ShouldBeNullIfFalse('willWorkInPhysicalJurisdiction')
     @shouldBeDefinedIfTrue('willWorkInPhysicalJurisdiction')
-    regulatoryElection: string;
+    regulatoryElection: RegulatoryElection;
 
     @ShouldBeNullIfFalse('willWorkInPhysicalJurisdiction')
     @shouldBeDefinedIfTrue('willWorkInPhysicalJurisdiction')

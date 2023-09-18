@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { RegulatoryElection } from 'src/resident/interfaces/resident.interface';
 
 @Schema()
 export class Current {
@@ -8,8 +9,8 @@ export class Current {
     @Prop()
     residentSub: string;
 
-    @Prop()
-    regulatoryElection: string;
+    @Prop({ type: String })
+    regulatoryElection: RegulatoryElection;
 }
 
 export const CurrentSchema = SchemaFactory.createForClass(Current);

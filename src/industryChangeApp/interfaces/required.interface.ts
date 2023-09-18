@@ -1,6 +1,8 @@
+import { Industry, RegulatoryElection } from 'src/resident/interfaces/resident.interface';
+
 export class Required {
     willWorkInPhysicalJurisdiction: Boolean;
-    industry: string;
-    regulatoryElection: string;
+    industry: Industry;
+    regulatoryElection: RegulatoryElection;
     regulatoryElectionSub: string;
 }

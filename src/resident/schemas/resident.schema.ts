@@ -1,7 +1,13 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import { AddressSchema } from './address.schema';
-import { TypeOfRegistration, TypeOfRegistrationSub, Status } from '../interfaces/resident.interface';
+import {
+    TypeOfRegistration,
+    TypeOfRegistrationSub,
+    Status,
+    Industry,
+    RegulatoryElection,
+} from '../interfaces/resident.interface';
 import { Address } from '../interfaces/address.interface';
 
 export type residentDocument = HydratedDocument<Resident>;
@@ -53,14 +59,14 @@ export class Resident {
     @Prop()
     typeOfRegistrationSub: TypeOfRegistrationSub;
 
-    @Prop()
-    industry: string;
+    @Prop({ type: String })
+    industry: Industry;
 
     @Prop({ required: true })
     willWorkInPhysicalJurisdiction: Boolean;
 
-    @Prop()
-    regulatoryElection: string;
+    @Prop({ type: String })
+    regulatoryElection: RegulatoryElection;
 
     @Prop()
     regulatoryElectionSub: string;
