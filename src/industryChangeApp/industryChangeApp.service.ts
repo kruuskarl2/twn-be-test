@@ -90,4 +90,24 @@ export class IndustryChangeAppService {
 
         return createdIndustryChangeApp.save();
     }
+
+    async findById(id: string) {
+        if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+            throw new HttpException(`Requested id is not an ObjectId.`, HttpStatus.BAD_REQUEST);
+        }
+
+        const foundApplication = await this.industryChangeAppModel.findById({
+            _id: id,
+            objectStatus: IndustryChangeAppObjectStatus.current,
+        });
+
+        if (!foundApplication) {
+            throw new HttpException(
+                `Industry change application with id '${id}' does not exist.`,
+                HttpStatus.NOT_FOUND,
+            );
+        }
+
+        return foundApplication;
+    }
 }
