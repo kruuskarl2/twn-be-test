@@ -1,5 +1,6 @@
-import { Controller, Post, Body, Res, HttpStatus, Get, Param } from '@nestjs/common';
+import { Controller, Post, Body, Res, HttpStatus, Get, Param, Query } from '@nestjs/common';
 import { CreateIndustryChangeAppDto } from './dto/create-industry-change-app.dto';
+import { FindIndustryChangeAppsDto } from './dto/find-industry-change-apps.dto';
 import { IndustryChangeAppService } from './industryChangeApp.service';
 import { IndustryChangeApp } from './interfaces/industryChangeApp.interface';
 
@@ -24,5 +25,12 @@ export class IndustryChangeAppController {
     @Get('/industry-change-applications/:id')
     async findById(@Param() params: any): Promise<IndustryChangeApp> {
         return await this.industryChangeAppService.findById(params.id);
+    }
+
+    @Get('/industry-change-applications')
+    async findIndustryChangeApps(
+        @Query() findIndustryChangeAppsDto: FindIndustryChangeAppsDto,
+    ): Promise<IndustryChangeApp[]> {
+        return await this.industryChangeAppService.findIndustryChangeApps(findIndustryChangeAppsDto);
     }
 }

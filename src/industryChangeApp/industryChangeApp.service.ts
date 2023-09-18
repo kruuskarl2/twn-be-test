@@ -3,6 +3,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { IndustryChangeApp as IndustryChangeAppSchema } from './schemas/industryChangeApp.schema';
 import { CreateIndustryChangeAppDto } from './dto/create-industry-change-app.dto';
+import { FindIndustryChangeAppsDto } from './dto/find-industry-change-apps.dto';
 import { ResidentService } from 'src/resident/resident.service';
 import { TypeOfRegistration, Status as ResidentStatus } from 'src/resident/interfaces/resident.interface';
 import {
@@ -91,12 +92,12 @@ export class IndustryChangeAppService {
         return createdIndustryChangeApp.save();
     }
 
-    async findById(id: string) {
+    async findById(id: string): Promise<IndustryChangeAppSchema> {
         if (!id.match(/^[0-9a-fA-F]{24}$/)) {
-            throw new HttpException(`Requested id is not an ObjectId.`, HttpStatus.BAD_REQUEST);
+            throw new HttpException('Requested id is not an ObjectId.', HttpStatus.BAD_REQUEST);
         }
 
-        const foundApplication = await this.industryChangeAppModel.findById({
+        const foundApplication = await this.industryChangeAppModel.findOne({
             _id: id,
             objectStatus: IndustryChangeAppObjectStatus.current,
         });
@@ -109,5 +110,27 @@ export class IndustryChangeAppService {
         }
 
         return foundApplication;
+    }
+
+    async findIndustryChangeApps(
+        findIndustryChangeAppsDto: FindIndustryChangeAppsDto,
+    ): Promise<IndustryChangeAppSchema[]> {
+        const foundApplications = [];
+        const { statuses, residentSub } = findIndustryChangeAppsDto;
+
+        for (const status of statuses) {
+            const newApps = await this.industryChangeAppModel.find({
+                residentSub,
+                status,
+                objectStatus: IndustryChangeAppObjectStatus.current,
+            });
+            foundApplications.push(...newApps);
+        }
+
+        if (!foundApplications.length) {
+            throw new HttpException(`Couldn't find any applications.`, HttpStatus.NOT_FOUND);
+        }
+
+        return foundApplications;
     }
 }

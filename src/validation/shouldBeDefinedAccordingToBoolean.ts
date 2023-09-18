@@ -28,6 +28,6 @@ export class shouldBeDefinedAccordingToBooleanConstraint implements ValidatorCon
 
     defaultMessage(args?: ValidationArguments): string {
         const [relatedPropertyName] = args.constraints;
-        return `'${relatedPropertyName}' needs to be defined/null if '$property' is true/false respectively.`;
+        return `'${relatedPropertyName}' needs to be defined/undefined if '$property' is true/false respectively.`;
     }
 }
