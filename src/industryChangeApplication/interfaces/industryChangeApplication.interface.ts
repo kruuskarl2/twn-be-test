@@ -1,27 +1,26 @@
-import { CurrentInterface } from './current.interface';
-import { RequiredInterface } from './required.interface';
-import { DecisionInterface } from './decision.interface';
+import { Current } from './current.interface';
+import { Required } from './required.interface';
+import { Decision } from './decision.interface';
 
-enum Status {
+export enum Status {
     inReview = 'IN_REVIEW',
     approved = 'APPROVED',
-    rejected = 'REJECTED'
+    rejected = 'REJECTED',
 }
 
-enum ObjectStatus {
+export enum ObjectStatus {
     current = 'CURRENT',
-    deleted = 'DELETED'
+    deleted = 'DELETED',
 }
 
 export interface IndustryChangeApplication {
-    id: string;
     residentSub: string;
-    current: CurrentInterface;
-    required: RequiredInterface;
+    current: Current;
+    required: Required;
     status: Status;
     submittedAt: Date;
-    decision: DecisionInterface;
-    createdBy: string
-    updatedBy: string
-    objectStatus: ObjectStatus
+    decision: Decision;
+    createdBy: string;
+    updatedBy: string;
+    objectStatus: ObjectStatus;
 }

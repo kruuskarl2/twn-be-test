@@ -1,4 +1,6 @@
 import { IsString, IsBoolean } from 'class-validator';
+import { ShouldBeNullIfFalse } from 'src/validation/shouldBeNullIfFalse';
+import { shouldBeDefinedIfTrue } from 'src/validation/shouldBeDefinedIfTrue';
 
 export class CreateIndustryChangeApplicationDto {
     @IsString()
@@ -7,12 +9,15 @@ export class CreateIndustryChangeApplicationDto {
     @IsBoolean()
     willWorkInPhysicalJurisdiction: Boolean;
 
-    @IsString()
+    @ShouldBeNullIfFalse('willWorkInPhysicalJurisdiction')
+    @shouldBeDefinedIfTrue('willWorkInPhysicalJurisdiction')
     industry: string;
 
-    @IsString()
+    @ShouldBeNullIfFalse('willWorkInPhysicalJurisdiction')
+    @shouldBeDefinedIfTrue('willWorkInPhysicalJurisdiction')
     regulatoryElection: string;
 
-    @IsString()
+    @ShouldBeNullIfFalse('willWorkInPhysicalJurisdiction')
+    @shouldBeDefinedIfTrue('willWorkInPhysicalJurisdiction')
     regulatoryElectionSub: string;
 }

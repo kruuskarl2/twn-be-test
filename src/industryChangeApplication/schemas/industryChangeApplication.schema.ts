@@ -3,36 +3,23 @@ import { HydratedDocument } from 'mongoose';
 import { CurrentSchema } from './current.schema';
 import { RequiredSchema } from './required.schema';
 import { DecisionSchema } from './decision.schema';
-import { CurrentInterface } from '../interfaces/current.interface';
-import { RequiredInterface } from '../interfaces/required.interface';
-import { DecisionInterface } from '../interfaces/decision.interface';
+import { Current } from '../interfaces/current.interface';
+import { Required } from '../interfaces/required.interface';
+import { Decision } from '../interfaces/decision.interface';
+import { Status, ObjectStatus } from '../interfaces/industryChangeApplication.interface';
 
 export type industryChangeApplicationDocument = HydratedDocument<IndustryChangeApplication>;
 
-enum Status {
-    inReview = 'IN_REVIEW',
-    approved = 'APPROVED',
-    rejected = 'REJECTED'
-}
-
-enum ObjectStatus {
-    current = 'CURRENT',
-    deleted = 'DELETED'
-}
-
-@Schema({ timestamps: true, collection: "industryChangeApplications" })
+@Schema({ timestamps: true, collection: 'industryChangeApplications' })
 export class IndustryChangeApplication {
-    @Prop({ required: true })
-    id: string;
-
     @Prop({ required: true })
     residentSub: string;
 
     @Prop({ type: CurrentSchema, required: true })
-    current: CurrentInterface;
+    current: Current;
 
     @Prop({ type: RequiredSchema, required: true })
-    required: RequiredInterface;
+    required: Required;
 
     @Prop({ type: String, required: true })
     status: Status;
@@ -41,16 +28,16 @@ export class IndustryChangeApplication {
     submittedAt: Date;
 
     @Prop({ type: DecisionSchema })
-    decision: DecisionInterface;
+    decision: Decision;
 
     @Prop()
-    createdBy: string
+    createdBy: string;
 
     @Prop()
-    updatedBy: string
+    updatedBy: string;
 
     @Prop({ type: String, required: true })
-    objectStatus: ObjectStatus
+    objectStatus: ObjectStatus;
 }
 
 export const IndustryChangeApplicationSchema = SchemaFactory.createForClass(IndustryChangeApplication);

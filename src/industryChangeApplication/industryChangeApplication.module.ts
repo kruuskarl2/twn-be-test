@@ -1,17 +1,21 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ConfigModule } from '@nestjs/config';
 import { IndustryChangeApplicationController } from './industryChangeApplication.controller';
 import { IndustryChangeApplicationService } from './industryChangeApplication.service';
 import { IndustryChangeApplication, IndustryChangeApplicationSchema } from './schemas/industryChangeApplication.schema';
+import { ResidentModule } from 'src/resident/resident.module';
 
 @Module({
     controllers: [IndustryChangeApplicationController],
     providers: [IndustryChangeApplicationService],
     imports: [
-        ConfigModule.forRoot(),
-        MongooseModule.forRoot(process.env.CONNECTION_STRING, { dbName: 'residentRegistry' }),
-        MongooseModule.forFeature([{ name: IndustryChangeApplication.name, schema: IndustryChangeApplicationSchema }])
-    ]
+        MongooseModule.forFeature([
+            {
+                name: IndustryChangeApplication.name,
+                schema: IndustryChangeApplicationSchema,
+            },
+        ]),
+        ResidentModule,
+    ],
 })
-export class IndustryChangeApplicationModule { }
+export class IndustryChangeApplicationModule {}

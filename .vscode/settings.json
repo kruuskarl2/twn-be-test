@@ -1,0 +1,5 @@
+{
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "typescript.format.enable": true,
+    "javascript.format.enable": true
+}
