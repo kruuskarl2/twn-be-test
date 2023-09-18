@@ -28,10 +28,8 @@ export class IndustryChangeAppController {
     }
 
     @Get('/industry-change-applications')
-    async findIndustryChangeApps(
-        @Query() findIndustryChangeAppsDto: FindIndustryChangeAppsDto,
-    ): Promise<IndustryChangeApp[]> {
-        return await this.industryChangeAppService.findIndustryChangeApps(findIndustryChangeAppsDto);
+    async find(@Query() findIndustryChangeAppsDto: FindIndustryChangeAppsDto): Promise<IndustryChangeApp[]> {
+        return await this.industryChangeAppService.find(findIndustryChangeAppsDto);
     }
 
     @Delete('/industry-change-applications/:id')

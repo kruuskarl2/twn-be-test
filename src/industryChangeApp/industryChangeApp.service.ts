@@ -23,7 +23,7 @@ export class IndustryChangeAppService {
     async create(createIndustryChangeAppDto: CreateIndustryChangeAppDto): Promise<IndustryChangeAppSchema> {
         const { residentSub: sub, ...comparableProperties } = createIndustryChangeAppDto;
 
-        const resident = await this.residentService.findResidentBySub(sub);
+        const resident = await this.residentService.findBySub(sub);
 
         if (!resident) {
             throw new HttpException(`Resident with id '${sub}' does not exist.`, HttpStatus.NOT_FOUND);
@@ -112,9 +112,7 @@ export class IndustryChangeAppService {
         return foundApplication;
     }
 
-    async findIndustryChangeApps(
-        findIndustryChangeAppsDto: FindIndustryChangeAppsDto,
-    ): Promise<IndustryChangeAppSchema[]> {
+    async find(findIndustryChangeAppsDto: FindIndustryChangeAppsDto): Promise<IndustryChangeAppSchema[]> {
         const foundApplications = [];
         const { statuses, residentSub } = findIndustryChangeAppsDto;
 
