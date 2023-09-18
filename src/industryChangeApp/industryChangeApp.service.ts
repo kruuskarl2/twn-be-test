@@ -133,4 +133,29 @@ export class IndustryChangeAppService {
 
         return foundApplications;
     }
+
+    async deleteById(id: string): Promise<IndustryChangeAppSchema> {
+        if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+            throw new HttpException('Requested id is not an ObjectId.', HttpStatus.BAD_REQUEST);
+        }
+
+        const foundApplication = await this.industryChangeAppModel.findOneAndUpdate(
+            {
+                _id: id,
+                status: IndustryChangeAppStatus.inReview,
+                objectStatus: IndustryChangeAppObjectStatus.current,
+            },
+            { objectStatus: IndustryChangeAppObjectStatus.deleted },
+            { new: true },
+        );
+
+        if (!foundApplication) {
+            throw new HttpException(
+                `In review industry change application with id '${id}' does not exist.`,
+                HttpStatus.NOT_FOUND,
+            );
+        }
+
+        return foundApplication;
+    }
 }
