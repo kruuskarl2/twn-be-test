@@ -1,7 +1,8 @@
-import { RegulatoryElection } from 'src/resident/interfaces/resident.interface';
+import { RegulatoryElection, Industry } from 'src/resident/interfaces/resident.interface';
 
 export class Current {
     willWorkInPhysicalJurisdiction: Boolean;
-    residentSub: string;
+    industry: Industry;
     regulatoryElection: RegulatoryElection;
+    regulatoryElectionSub: string;
 }

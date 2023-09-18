@@ -1,6 +1,5 @@
-import { IsString, IsBoolean, IsEnum } from 'class-validator';
-import { ShouldBeNullIfFalse } from 'src/validation/shouldBeNullIfFalse';
-import { shouldBeDefinedIfTrue } from 'src/validation/shouldBeDefinedIfTrue';
+import { IsString, IsBoolean, IsEnum, IsOptional } from 'class-validator';
+import { ShouldBeDefinedAccordingToBoolean } from 'src/validation/shouldBeDefinedAccordingToBoolean';
 import { Industry, RegulatoryElection } from 'src/resident/interfaces/resident.interface';
 
 export class CreateIndustryChangeAppDto {
@@ -8,19 +7,20 @@ export class CreateIndustryChangeAppDto {
     residentSub: string;
 
     @IsBoolean()
+    @ShouldBeDefinedAccordingToBoolean('industry')
+    @ShouldBeDefinedAccordingToBoolean('regulatoryElection')
+    @ShouldBeDefinedAccordingToBoolean('regulatoryElectionSub')
     willWorkInPhysicalJurisdiction: Boolean;
 
+    @IsOptional()
     @IsEnum(Industry)
-    @ShouldBeNullIfFalse('willWorkInPhysicalJurisdiction')
-    @shouldBeDefinedIfTrue('willWorkInPhysicalJurisdiction')
     industry: Industry;
 
+    @IsOptional()
     @IsEnum(RegulatoryElection)
-    @ShouldBeNullIfFalse('willWorkInPhysicalJurisdiction')
-    @shouldBeDefinedIfTrue('willWorkInPhysicalJurisdiction')
     regulatoryElection: RegulatoryElection;
 
-    @ShouldBeNullIfFalse('willWorkInPhysicalJurisdiction')
-    @shouldBeDefinedIfTrue('willWorkInPhysicalJurisdiction')
+    @IsOptional()
+    @IsString()
     regulatoryElectionSub: string;
 }

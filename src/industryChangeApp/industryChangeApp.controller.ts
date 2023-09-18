@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Res, HttpStatus } from '@nestjs/common';
 import { CreateIndustryChangeAppDto } from './dto/create-industry-change-app.dto';
 import { IndustryChangeAppService } from './industryChangeApp.service';
 
@@ -8,9 +8,15 @@ export class IndustryChangeAppController {
 
     @Post('/industry-change-applications')
     async create(
+        @Res() response,
         @Body()
         createIndustryChangeAppDto: CreateIndustryChangeAppDto,
     ) {
-        await this.industryChangeAppService.create(createIndustryChangeAppDto);
+        const newApplication = await this.industryChangeAppService.create(createIndustryChangeAppDto);
+
+        return response.status(HttpStatus.CREATED).json({
+            message: 'Industry change application has been created successfully.',
+            newApplication,
+        });
     }
 }

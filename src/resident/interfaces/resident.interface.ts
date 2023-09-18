@@ -25,7 +25,6 @@ export enum Industry {
     miningAndSubsurface = 'MINING_AND_SUBSURFACE',
     privateSecurity = 'PRIVATE_SECURITY',
     wasteManagement = 'WASTE_MANAGEMENT',
-    null = undefined,
 }
 
 export enum RegulatoryElection {
@@ -63,7 +62,6 @@ export enum RegulatoryElection {
     switzerland = 'SWITZERLAND',
     uk = 'UK',
     usa = 'USA',
-    null = undefined,
 }
 
 export class Resident {

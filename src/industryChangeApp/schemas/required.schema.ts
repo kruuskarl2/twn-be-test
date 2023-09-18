@@ -1,13 +1,13 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { RegulatoryElection } from 'src/resident/interfaces/resident.interface';
+import { Industry, RegulatoryElection } from 'src/resident/interfaces/resident.interface';
 
 @Schema()
 export class Required {
     @Prop({ required: true })
     willWorkInPhysicalJurisdiction: Boolean;
 
-    @Prop()
-    industry: string;
+    @Prop({ type: String })
+    industry: Industry;
 
     @Prop({ type: String })
     regulatoryElection: RegulatoryElection;
