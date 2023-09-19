@@ -51,7 +51,7 @@ export class Resident {
     address: Address;
 
     @Prop({ required: true })
-    phoneNumber: string;
+    phoneNumber: Number;
 
     @Prop({ required: true })
     typeOfRegistration: TypeOfRegistration;

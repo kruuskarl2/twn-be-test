@@ -77,7 +77,7 @@ export class Resident {
     citizenship: string;
     gender: string;
     address: Object;
-    phoneNumber: string;
+    phoneNumber: Number;
     typeOfRegistration: TypeOfRegistration;
     typeOfRegistrationSub: TypeOfRegistrationSub;
     industry: Industry;

@@ -8,6 +8,10 @@ import { UpdateResidentIndustryDto } from './dto/update-resident-industry.dto';
 export class ResidentService {
     constructor(@InjectModel(Resident.name) private residentModel: Model<Resident>) {}
 
+    async findAll(): Promise<Resident[]> {
+        return await this.residentModel.find();
+    }
+
     async findBySub(sub: string): Promise<Resident> {
         return await this.residentModel.findOne({ sub });
     }

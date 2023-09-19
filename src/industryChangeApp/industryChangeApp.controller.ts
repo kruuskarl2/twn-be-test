@@ -4,11 +4,11 @@ import { FindIndustryChangeAppsDto } from './dto/find-industry-change-apps.dto';
 import { IndustryChangeAppService } from './industryChangeApp.service';
 import { IndustryChangeApp } from './interfaces/industryChangeApp.interface';
 
-@Controller('resident-register')
+@Controller('resident-register/industry-change-applications')
 export class IndustryChangeAppController {
     constructor(private industryChangeAppService: IndustryChangeAppService) {}
 
-    @Post('/industry-change-applications')
+    @Post()
     async create(
         @Res() response,
         @Body()
@@ -22,18 +22,18 @@ export class IndustryChangeAppController {
         });
     }
 
-    @Get('/industry-change-applications/:id')
+    @Get('/:id')
     async findById(@Param() params: any): Promise<IndustryChangeApp> {
         return await this.industryChangeAppService.findById(params.id);
     }
 
-    @Get('/industry-change-applications')
+    @Get()
     async find(@Query() findIndustryChangeAppsDto: FindIndustryChangeAppsDto): Promise<IndustryChangeApp[]> {
         return await this.industryChangeAppService.find(findIndustryChangeAppsDto);
     }
 
-    @Delete('/industry-change-applications/:id')
-    async deleteById(@Res() response, @Param() params: any): Promise<IndustryChangeApp> {
+    @Delete('/:id')
+    async deleteById(@Res() response, @Param() params: any) {
         const deletedApplication = await this.industryChangeAppService.deleteById(params.id);
 
         return response.status(HttpStatus.OK).json({
